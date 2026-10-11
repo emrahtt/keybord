@@ -1,0 +1,166 @@
+<Window x:Class="YazimAsistani.Desktop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="{Binding WindowTitle}"
+        Width="940"
+        Height="650"
+        MinWidth="760"
+        MinHeight="560"
+        WindowStartupLocation="CenterScreen">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Margin="28">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="18" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="18" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="18" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <TextBlock Text="{Binding WindowTitle}"
+                               FontSize="30"
+                               FontWeight="Bold" />
+                    <TextBlock Text="{Binding Subtitle}"
+                               Margin="0,6,0,0"
+                               Foreground="{StaticResource MutedTextBrush}"
+                               FontSize="14" />
+                </StackPanel>
+                <Button Grid.Column="1"
+                        Content="{Binding UiLanguageButtonText}"
+                        Command="{Binding ToggleUiLanguageCommand}"
+                        VerticalAlignment="Center" />
+            </Grid>
+
+            <Border Grid.Row="2"
+                    Padding="20"
+                    CornerRadius="14"
+                    Background="{StaticResource CardBrush}"
+                    BorderBrush="{StaticResource CardBorderBrush}"
+                    BorderThickness="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="12" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <StackPanel>
+                        <TextBlock Text="{Binding AssistantStateTitle}"
+                                   FontSize="18"
+                                   FontWeight="SemiBold" />
+                        <TextBlock Text="{Binding StatusText}"
+                                   Margin="0,6,0,0"
+                                   Foreground="{StaticResource MutedTextBrush}" />
+                        <TextBlock Text="Ctrl + Alt + Space"
+                                   Margin="0,8,0,0"
+                                   Foreground="{StaticResource PrimaryBrush}"
+                                   FontWeight="SemiBold" />
+                    </StackPanel>
+                    <WrapPanel Grid.Row="2" HorizontalAlignment="Left">
+                        <Button Content="{Binding LanguageButtonText}"
+                                Command="{Binding ToggleLanguageCommand}" />
+                        <Button Content="{Binding OnScreenKeyboardButtonText}"
+                                Click="OpenOnScreenKeyboard" />
+                        <Button Content="{Binding ToolsButtonText}"
+                                Click="OpenTools" />
+                        <Button Content="{Binding VoiceButtonText}"
+                                Click="ToggleVoiceTyping" />
+                        <Button Content="{Binding ToggleAssistantButtonText}"
+                                Command="{Binding ToggleAssistantCommand}" />
+                    </WrapPanel>
+                </Grid>
+            </Border>
+
+            <Grid Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="18" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0"
+                        Padding="20"
+                        CornerRadius="14"
+                        Background="{StaticResource CardBrush}"
+                        BorderBrush="{StaticResource CardBorderBrush}"
+                        BorderThickness="1">
+                    <StackPanel>
+                        <TextBlock Text="{Binding TryTitle}"
+                                   FontSize="18"
+                                   FontWeight="SemiBold" />
+                        <TextBlock Text="{Binding TryDescription}"
+                                   Margin="0,6,0,12"
+                                   Foreground="{StaticResource MutedTextBrush}"
+                                   TextWrapping="Wrap" />
+                        <TextBox Text="{Binding PreviewText, UpdateSourceTrigger=PropertyChanged}"
+                                 AcceptsReturn="True"
+                                 TextWrapping="Wrap"
+                                 MinHeight="165"
+                                 VerticalScrollBarVisibility="Auto" />
+                        <StackPanel Orientation="Horizontal" Margin="0,14,0,0">
+                            <Button Content="{Binding LearnButtonText}"
+                                    Command="{Binding LearnPreviewCommand}" />
+                            <Button Content="{Binding ClearButtonText}"
+                                    Command="{Binding ClearPreviewCommand}" />
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="2"
+                        Padding="20"
+                        CornerRadius="14"
+                        Background="{StaticResource CardBrush}"
+                        BorderBrush="{StaticResource CardBorderBrush}"
+                        BorderThickness="1">
+                    <StackPanel>
+                        <TextBlock Text="{Binding SuggestionsTitle}"
+                                   FontSize="18"
+                                   FontWeight="SemiBold" />
+                        <TextBlock Text="{Binding SuggestionsDescription}"
+                                   Margin="0,6,0,12"
+                                   Foreground="{StaticResource MutedTextBrush}"
+                                   TextWrapping="Wrap" />
+                        <ListBox ItemsSource="{Binding Suggestions}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Margin="0,0,0,8"
+                                            Padding="12,9"
+                                            CornerRadius="9"
+                                            Background="#10151D">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="{Binding Text}"
+                                                       FontSize="16"
+                                                       FontWeight="SemiBold" />
+                                            <TextBlock Grid.Column="1"
+                                                       Text="{Binding KindText}"
+                                                       Foreground="{StaticResource MutedTextBrush}"
+                                                       VerticalAlignment="Center" />
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <TextBlock Grid.Row="6"
+                       Text="{Binding PrivacyNotice}"
+                       Foreground="{StaticResource MutedTextBrush}"
+                       TextWrapping="Wrap"
+                       HorizontalAlignment="Center" />
+        </Grid>
+    </ScrollViewer>
+</Window>
+

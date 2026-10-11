@@ -1,0 +1,69 @@
+<Window x:Class="YazimAsistani.Desktop.Views.OnScreenKeyboardWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Ekran Klavyesi / On-screen Keyboard"
+        Width="920"
+        Height="340"
+        MinWidth="680"
+        MinHeight="260"
+        Topmost="True"
+        ShowActivated="False"
+        WindowStyle="ToolWindow"
+        ResizeMode="CanResizeWithGrip"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="12" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="12" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="220" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock x:Name="LanguageTitle"
+                       FontSize="18"
+                       FontWeight="SemiBold"
+                       VerticalAlignment="Center" />
+            <ComboBox x:Name="LayoutSelector"
+                      Grid.Column="1"
+                      Margin="16,0"
+                      DisplayMemberPath="Name"
+                      SelectionChanged="LayoutSelectionChanged" />
+            <Button Grid.Column="3"
+                    Content="Yenile / Refresh"
+                    Click="RefreshButtonClicked" />
+        </Grid>
+
+        <UniformGrid x:Name="KeyGrid"
+                     Grid.Row="2"
+                     Columns="10" />
+
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Button Content="⌫ Backspace"
+                    Tag="Backspace"
+                    Click="SpecialKeyClicked" />
+            <Button Grid.Column="1"
+                    Content="Boşluk / Space"
+                    Tag="Space"
+                    Margin="8,0"
+                    Click="SpecialKeyClicked" />
+            <Button Grid.Column="2"
+                    Content="↵ Enter"
+                    Tag="Enter"
+                    Click="SpecialKeyClicked" />
+        </Grid>
+    </Grid>
+</Window>
+
