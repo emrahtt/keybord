@@ -1,0 +1,30 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - run: dotnet restore YazimAsistani.sln
+      - run: ./scripts/publish-portable.ps1
+        shell: pwsh
+      - name: Create GitHub Release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >-
+          gh release create "${{ github.ref_name }}"
+          "artifacts/Yazim-Asistani-1.0.0-portable-win-x64.zip"
+          --title "Yazım Asistanı 1.0.0"
+          --notes "Türkçe ve İngilizce için çevrimdışı öncelikli Windows yazım yardımcısı. ZIP dosyasını indirip tamamen çıkarın ve YazimAsistani.exe dosyasını çalıştırın."
